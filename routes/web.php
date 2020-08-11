@@ -25,6 +25,8 @@ Route::get('/user', function () {
     return view('user/index');
 });
 
-Route::post('/user/getprize', function () {
-    return 'And we have a winner!';
-});
+Route::post('/user/getprize', 'UserController@getPrizeAction');
+Route::post('/prize/getMoneyAction', 'PrizeController@getMoneyAction')->name("money");
+Route::post('/prize/convertMoneyAction', 'PrizeController@convertMoneyAction')->name("convert");
+Route::post('/prize/getObjectAction', 'PrizeController@getObjectAction')->name("object");
+Route::post('/prize/getBonusAction', 'PrizeController@getBonusAction')->name("bonus");
