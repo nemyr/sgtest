@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('user/index');
+});
+
+Route::get('/user', function () {
+    return view('user/index');
+});
+
+Route::post('/user/getprize', function () {
+    return 'And we have a winner!';
 });
