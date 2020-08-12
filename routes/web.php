@@ -19,14 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('user/index');
-});
+})->middleware('auth');
 
 Route::get('/user', function () {
     return view('user/index');
-});
+})->name('index')->middleware('auth');
 
-Route::post('/user/getprize', 'UserController@getPrizeAction');
-Route::post('/prize/getMoneyAction', 'PrizeController@getMoneyAction')->name("money");
-Route::post('/prize/convertMoneyAction', 'PrizeController@convertMoneyAction')->name("convert");
-Route::post('/prize/getObjectAction', 'PrizeController@getObjectAction')->name("object");
-Route::post('/prize/getBonusAction', 'PrizeController@getBonusAction')->name("bonus");
+Route::post('/user/getprize', 'UserController@getPrizeAction')->middleware('auth')->middleware('auth');
+Route::post('/prize/getMoneyAction', 'PrizeController@getMoneyAction')->name("money")->middleware('auth');
+Route::post('/prize/convertMoney', 'PrizeController@convertMoneyAction')->name("convert")->middleware('auth');
+Route::post('/prize/getObject', 'PrizeController@getObjectAction')->name("object")->middleware('auth');
+Route::post('/prize/getBonus', 'PrizeController@getBonusAction')->name("bonus")->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
