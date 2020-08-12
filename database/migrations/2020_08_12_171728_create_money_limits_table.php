@@ -18,6 +18,10 @@ class CreateMoneyLimitsTable extends Migration
             $table->timestamps();
             $table->integer('balance');
         });
+
+        $t = new \App\Models\MoneyLimit();
+        $t->balance = 500;
+        $t->save();
     }
 
     /**

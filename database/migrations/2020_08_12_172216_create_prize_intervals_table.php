@@ -20,6 +20,21 @@ class CreatePrizeIntervalsTable extends Migration
             $table->integer('min');
             $table->integer('max');
         });
+
+        /*
+         * может так и не должно быть, но для отладки пусть будет
+         */
+        $t = new \App\Models\PrizeIntervals();
+        $t->prize_name = 'bonus';
+        $t->min = 300;
+        $t->max = 1000;
+        $t->save();
+
+        $t = new \App\Models\PrizeIntervals();
+        $t->prize_name = 'money';
+        $t->min = 50;
+        $t->max = 100;
+        $t->save();
     }
 
     /**
