@@ -12,7 +12,7 @@ class UserController extends Controller
 
     private function getPrize(array $avalPrizes = [self::PR_BONUS, self::PR_OBJECT, self::PR_MONEY])
     {
-        switch (rand(0,2)){//array_rand($avalPrizes)) {
+        switch (array_rand($avalPrizes)) {
             case 0:
                 return $this->sendBonus();
             case 1:
@@ -26,7 +26,7 @@ class UserController extends Controller
 
     private function sendBonus()
     {
-        return view("prizes.bonus");
+        return view("prizes.bonus", ['amount' => 500]);
     }
 
     private function sendObject()
@@ -36,7 +36,7 @@ class UserController extends Controller
 
     private function sendMoney()
     {
-        return view("prizes.money");
+        return view("prizes.money", ['amount' => 500]);
     }
 
     public function getPrizeAction()

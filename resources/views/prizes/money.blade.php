@@ -6,6 +6,7 @@
 
 @section('content')
     <h1>Деньги</h1>
+    <h4>Получено: {{$amount}}</h4>
     <form action="/prize/getMoney" method="post">
         @csrf
         <button type="submit">Забрать</button>
