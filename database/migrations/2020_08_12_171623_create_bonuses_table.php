@@ -16,6 +16,8 @@ class CreateBonusesTable extends Migration
         Schema::create('bonuses', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id');
+            $table->integer('balance', false, true);
         });
     }
 
