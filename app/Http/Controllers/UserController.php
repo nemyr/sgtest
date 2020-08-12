@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models;
 
 class UserController extends Controller
 {
@@ -12,7 +13,8 @@ class UserController extends Controller
 
     private function getPrize(array $avalPrizes = [self::PR_BONUS, self::PR_OBJECT, self::PR_MONEY])
     {
-        switch (array_rand($avalPrizes)) {
+//        switch (array_rand($avalPrizes)) {
+        switch (0) {
             case 0:
                 return $this->sendBonus();
             case 1:
@@ -24,9 +26,15 @@ class UserController extends Controller
         }
     }
 
+    private function getAmount($prize){
+        $interval = new Models\PrizeIntervals();
+        $intervalData = $interval->where('prize_name', '=', $prize)->first();
+        return ['amount' => rand($intervalData->min, $intervalData->max)];
+    }
+
     private function sendBonus()
     {
-        return view("prizes.bonus", ['amount' => 500]);
+        return view("prizes.bonus", $this->getAmount('bonus'));
     }
 
     private function sendObject()
@@ -36,7 +44,8 @@ class UserController extends Controller
 
     private function sendMoney()
     {
-        return view("prizes.money", ['amount' => 500]);
+
+        return view("prizes.money", $this->getAmount('money'));
     }
 
     public function getPrizeAction()
