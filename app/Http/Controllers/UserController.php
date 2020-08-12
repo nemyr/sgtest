@@ -15,8 +15,7 @@ class UserController extends Controller
 
     private function getPrize(array $avalPrizes)
     {
-//        switch (array_rand($avalPrizes)) {
-        switch (1) {
+        switch (array_rand($avalPrizes)) {
             case 0:
                 return $this->sendBonus();
             case 1:
@@ -51,8 +50,13 @@ class UserController extends Controller
 
     private function sendMoney()
     {
+        $amount = $this->getAmount('money');
 
-        return view("prizes.money", $this->getAmount('money'));
+        $limit = Models\MoneyLimit::find(1);
+        if ($limit->balance < $amount['amount'])
+            return $this->getPrize(array_diff($this->prizes, [self::PR_OBJECT]));
+
+        return view("prizes.money", $amount);
     }
 
     public function getPrizeAction()
