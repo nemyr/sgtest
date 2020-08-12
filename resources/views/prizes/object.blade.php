@@ -6,11 +6,13 @@
 
 @section('content')
     <h1>Предмет</h1>
-    <form action="/prize/getObject" method="post">
+    <h4>Предмет №{{$objectID}}</h4>
+    <form action="{{route('object')}}" method="post">
         @csrf
+        <input type="hidden", name="objectID" value="{{$objectID}}">
         <button type="submit">Забрать</button>
     </form>
-    <form action="/" method="post">
+    <form action="{{route('index')}}" method="get">
         @csrf
         <button type="submit">Отказаться</button>
     </form>

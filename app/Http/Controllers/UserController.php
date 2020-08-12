@@ -11,10 +11,12 @@ class UserController extends Controller
     const PR_OBJECT = 1;
     const PR_MONEY = 2;
 
-    private function getPrize(array $avalPrizes = [self::PR_BONUS, self::PR_OBJECT, self::PR_MONEY])
+    private $prizes = [self::PR_BONUS, self::PR_OBJECT, self::PR_MONEY];
+
+    private function getPrize(array $avalPrizes)
     {
 //        switch (array_rand($avalPrizes)) {
-        switch (0) {
+        switch (1) {
             case 0:
                 return $this->sendBonus();
             case 1:
@@ -39,7 +41,12 @@ class UserController extends Controller
 
     private function sendObject()
     {
-        return view("prizes.object");
+        $objectModel = new Models\PrizeObject();
+        $objectModel = $objectModel->where('is_ordered', '=', false);
+        if ($objectModel->doesntExist())
+            return $this->getPrize(array_diff($this->prizes, [self::PR_OBJECT]));
+
+        return view("prizes.object", ['objectID' => $objectModel->inRandomOrder()->first()->id]);
     }
 
     private function sendMoney()
@@ -50,6 +57,6 @@ class UserController extends Controller
 
     public function getPrizeAction()
     {
-        return $this->getPrize();
+        return $this->getPrize($this->prizes);
     }
 }
