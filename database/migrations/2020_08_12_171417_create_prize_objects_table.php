@@ -16,10 +16,17 @@ class CreatePrizeObjectsTable extends Migration
         Schema::create('prize_objects', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->foreignId('user_id')->nullable()->default(null);
             $table->string('name');
-            $table->boolean('is_ordered');
-            $table->boolean('is_sent');
+            $table->boolean('is_ordered')->default(false);
+            $table->boolean('is_sent')->default(false);
         });
+
+        for ($i = 0; $i < 3; $i++){
+            $t = new \App\Models\PrizeObject();
+            $t->name = 'obj' . $i;
+            $t->save();
+        }
     }
 
     /**
